@@ -210,5 +210,5 @@
 .rs.addFunction("reindexRange", function(range, offset = 1)
 {
    if (is.list(range))
-      rapply(range, `+`, e2 = offset, how = "replace")
+      base::rapply(range, `+`, e2 = offset, how = "replace")
 })
