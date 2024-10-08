@@ -188,7 +188,7 @@
    )
    
    # make all entries scalar
-   rapply(errors, .rs.scalar, how = "replace")
+   base::rapply(errors, .rs.scalar, how = "replace")
    
 })
 

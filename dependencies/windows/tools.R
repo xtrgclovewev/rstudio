@@ -90,7 +90,7 @@ exec <- function(command,
    
    # construct command line arguments
    dots <- list(...)
-   splat <- unlist(rapply(dots, function(dot) {
+   splat <- unlist(base::rapply(dots, function(dot) {
       unlist(strsplit(dot, "[[:space:]]+"))
    }))
    
