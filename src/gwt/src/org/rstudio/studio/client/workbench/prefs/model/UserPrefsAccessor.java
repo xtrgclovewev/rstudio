@@ -2173,7 +2173,7 @@ public class UserPrefsAccessor extends Prefs
          "always_shown_extensions",
          _constants.alwaysShownExtensionsTitle(), 
          _constants.alwaysShownExtensionsDescription(), 
-         JsArrayUtil.createStringArray(".circleci", ".gitattributes", ".github", ".gitignore", ".httr-oauth", ".lintr", ".quartoignore", ".r", ".rbuildignore", ".rdata", ".renvignore", ".renviron", ".rhistory", ".rprofile", ".ruserdata"));
+         JsArrayUtil.createStringArray(".circleci", ".env", ".gitattributes", ".github", ".gitignore", ".httr-oauth", ".lintr", ".quartoignore", ".r", ".rbuildignore", ".rdata", ".renvignore", ".renviron", ".rhistory", ".rprofile", ".ruserdata"));
    }
 
    /**
@@ -2624,6 +2624,18 @@ public class UserPrefsAccessor extends Prefs
          "clean_before_install",
          _constants.cleanBeforeInstallTitle(), 
          _constants.cleanBeforeInstallDescription(), 
+         true);
+   }
+
+   /**
+    * When set, RStudio will build your package in a '_build' sub-directory of your current library paths.
+    */
+   public PrefValue<Boolean> useBuildSubdirectory()
+   {
+      return bool(
+         "use_build_subdirectory",
+         _constants.useBuildSubdirectoryTitle(), 
+         _constants.useBuildSubdirectoryDescription(), 
          true);
    }
 
@@ -4112,6 +4124,8 @@ public class UserPrefsAccessor extends Prefs
          useDevtools().setValue(layer, source.getBool("use_devtools"));
       if (source.hasKey("clean_before_install"))
          cleanBeforeInstall().setValue(layer, source.getBool("clean_before_install"));
+      if (source.hasKey("use_build_subdirectory"))
+         useBuildSubdirectory().setValue(layer, source.getBool("use_build_subdirectory"));
       if (source.hasKey("use_secure_download"))
          useSecureDownload().setValue(layer, source.getBool("use_secure_download"));
       if (source.hasKey("cleanup_after_r_cmd_check"))
@@ -4455,6 +4469,7 @@ public class UserPrefsAccessor extends Prefs
       prefs.add(sshKeyType());
       prefs.add(useDevtools());
       prefs.add(cleanBeforeInstall());
+      prefs.add(useBuildSubdirectory());
       prefs.add(useSecureDownload());
       prefs.add(cleanupAfterRCmdCheck());
       prefs.add(viewDirAfterRCmdCheck());

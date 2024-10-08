@@ -287,7 +287,15 @@
    code <- if (is.character(lines))
    {
       srcpos <- .rs.parseSrcref(srcref)
-      range <- seq(from = srcpos$first_parsed, to = srcpos$last_parsed)
+      range <- if (inherits(srcfile, c("srcfilecopy", "srcfilealias")))
+      {
+         seq(from = srcpos$first_parsed, to = srcpos$last_parsed)
+      }
+      else
+      {
+         seq(from = srcpos$first_line, to = srcpos$last_line)
+      }
+
       lines[range]
    }
    else
@@ -2753,16 +2761,6 @@
    result <- force(expr)
    .rs.setVar(name, result)
    result
-})
-
-.rs.addFunction("nullCoalesce", function(...)
-{
-   for (i in seq_len(...length()))
-   {
-      value <- ...elt(i)
-      if (!is.null(value))
-         return(value)
-   }
 })
 
 .rs.addFunction("truncate", function(string, n = 200, marker = "<...>")
